@@ -9,17 +9,17 @@ import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class TopFacilitiesByInstall {
+public class InstallationsPerSuburb {
     public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         private final static IntWritable one = new IntWritable(1);
         private Text facility = new Text();
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",", -1);
-            if (fields.length > 0) {
-                String address = fields[0].trim();
-                if (!address.isEmpty()) {
-                    facility.set(address);
+            if (fields.length > 38) {
+                String suburb = fields[38].trim();
+                if (!suburb.isEmpty()) {
+                    facility.set(suburb);
                     context.write(facility, one);
                 }
             }
@@ -37,7 +37,7 @@ public class TopFacilitiesByInstall {
     public static void main(String[] args) throws Exception {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Top Facilities by Install");
-        job.setJarByClass(TopFacilitiesByInstall.class);
+        job.setJarByClass(InstallationsPerSuburb.class);
         job.setMapperClass(Map.class);
         job.setReducerClass(Reduce.class);
         job.setOutputKeyClass(Text.class);

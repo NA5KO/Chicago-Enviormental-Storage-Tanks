@@ -52,11 +52,20 @@
         },
         {
             "type": "java",
-            "name": "TopFacilitiesByInstall",
+            "name": "InstallationsPerSuburb",
             "request": "launch",
-            "mainClass": "bigdataproject.jobs.TopFacilitiesByInstall",
+            "mainClass": "bigdataproject.jobs.InstallationsPerSuburb",
             "projectName": "chicago_env",
-            "args": ["src/main/resources/file.csv","src/main/resources/output/install"]
+            "args": ["src/main/resources/file2.csv","src/main/resources/output/install_2"]
+        },
+
+        {
+            "type": "java",
+            "name": "TanksByProduct",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.TanksByProduct",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output/Products"]
         }
     ]
 }

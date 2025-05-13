@@ -10,30 +10,28 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 public class TankCapacityAnalysis {
-    public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
-        private Text tankType = new Text();
+    public static class Map extends Mapper<LongWritable, Text, IntWritable, IntWritable> {
+        private final static IntWritable one = new IntWritable(1);
+        private IntWritable capacityWritable = new IntWritable();
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",", -1);
             if (fields.length > 14) {
-                String type = fields[6].trim();
                 String capacityStr = fields[14].trim(); // CAPACITY
                 try {
                     int capacity = Integer.parseInt(capacityStr);
-                    if (!type.isEmpty()) {
-                        tankType.set(type);
-                        context.write(tankType, new IntWritable(capacity));
-                    }
+                    capacityWritable.set(capacity);
+                    context.write(capacityWritable, one);
                 } catch (NumberFormatException e) {}
             }
         }
     }
 
-    public static class Reduce extends Reducer<Text, IntWritable, Text, IntWritable> {
-        public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
-            int sum = 0;
-            for (IntWritable val : values) sum += val.get();
-            context.write(key, new IntWritable(sum));  // Or average
+    public static class Reduce extends Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
+        public void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int count = 0;
+            for (IntWritable val : values) count += val.get();
+            context.write(key, new IntWritable(count));
         }
     }
 
@@ -43,7 +41,7 @@ public class TankCapacityAnalysis {
         job.setJarByClass(TankCapacityAnalysis.class);
         job.setMapperClass(Map.class);
         job.setReducerClass(Reduce.class);
-        job.setOutputKeyClass(Text.class);
+        job.setOutputKeyClass(IntWritable.class);
         job.setOutputValueClass(IntWritable.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
