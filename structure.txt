@@ -1,0 +1,33 @@
+.
+├── build
+├── src
+│   └── main
+│       ├── java
+│       │   └── bigdataproject
+│       │       └── jobs
+│       └── resources
+│           └── output
+│               ├── capacity
+│               ├── Products
+│               ├── removals
+│               ├── suburb
+│               └── type
+└── target
+    ├── classes
+    │   ├── bigdataproject
+    │   │   └── jobs
+    │   └── output
+    │       ├── capacity
+    │       ├── Products
+    │       ├── removals
+    │       ├── suburb
+    │       └── type
+    ├── maven-archiver
+    └── maven-status
+        └── maven-compiler-plugin
+            ├── compile
+            │   └── default-compile
+            └── testCompile
+                └── default-testCompile
+
+30 directories
