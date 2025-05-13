@@ -20,8 +20,8 @@ public class InstallationsPerYear {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",", -1);
-            if (fields.length > 10) {
-                String dateStr = fields[10].trim(); // INSTALLATION DATE column
+            if (fields.length > 15) { // Ensure the 16th column exists
+                String dateStr = fields[15].trim(); // INSTALLATION DATE column
                 try {
                     if (!dateStr.isEmpty()) {
                         Date date = dateFormat.parse(dateStr);

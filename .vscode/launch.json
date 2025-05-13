@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "bigdataproject.Main",
+            "projectName": "chicago_env"
+        },
+        {
+            "type": "java",
+            "name": "InstallationsPerYear",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.InstallationsPerYear",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output"]
+        },
+        {
+            "type": "java",
+            "name": "RemovalsPerYear",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.RemovalsPerYear",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output/removals"]
+        },
+        {
+            "type": "java",
+            "name": "TankCapacityAnalysis",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.TankCapacityAnalysis",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output/capacity"]
+        },
+        {
+            "type": "java",
+            "name": "TankTypeDistribution",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.TankTypeDistribution",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output/type"]
+        },
+        {
+            "type": "java",
+            "name": "TopFacilitiesByInstall",
+            "request": "launch",
+            "mainClass": "bigdataproject.jobs.TopFacilitiesByInstall",
+            "projectName": "chicago_env",
+            "args": ["src/main/resources/file.csv","src/main/resources/output/install"]
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+bigdataproject\jobs\RemovalsPerYear.class
+bigdataproject\jobs\TankCapacityAnalysis$Reduce.class
+bigdataproject\jobs\InstallationsPerYear.class
+bigdataproject\jobs\InstallationsPerYear$Map.class
+bigdataproject\jobs\TankTypeDistribution.class
+bigdataproject\jobs\TankCapacityAnalysis.class
+bigdataproject\jobs\InstallationsPerYear$Reduce.class
+bigdataproject\jobs\TopFacilitiesByInstall$Reduce.class
+bigdataproject\jobs\RemovalsPerYear$Reduce.class
+bigdataproject\jobs\TopFacilitiesByInstall.class
+bigdataproject\Main.class
+bigdataproject\jobs\RemovalsPerYear$Map.class
+bigdataproject\jobs\TankTypeDistribution$Reduce.class
+bigdataproject\jobs\TopFacilitiesByInstall$Map.class
+bigdataproject\jobs\TankCapacityAnalysis$Map.class
+bigdataproject\jobs\TankTypeDistribution$Map.class

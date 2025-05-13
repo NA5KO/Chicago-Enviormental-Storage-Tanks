@@ -19,8 +19,8 @@ public class RemovalsPerYear {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",", -1);
-            if (fields.length > 11) {
-                String dateStr = fields[11].trim(); // REMOVAL DATE
+            if (fields.length > 16) {
+                String dateStr = fields[16].trim(); // REMOVAL DATE
                 try {
                     if (!dateStr.isEmpty()) {
                         Date date = dateFormat.parse(dateStr);

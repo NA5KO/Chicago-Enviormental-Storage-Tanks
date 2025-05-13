@@ -15,9 +15,9 @@ public class TankCapacityAnalysis {
 
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             String[] fields = value.toString().split(",", -1);
-            if (fields.length > 15) {
+            if (fields.length > 14) {
                 String type = fields[6].trim();
-                String capacityStr = fields[15].trim(); // CAPACITY
+                String capacityStr = fields[14].trim(); // CAPACITY
                 try {
                     int capacity = Integer.parseInt(capacityStr);
                     if (!type.isEmpty()) {
