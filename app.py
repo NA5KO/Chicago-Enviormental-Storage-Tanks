@@ -16,19 +16,19 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.title = "Chicago Tank Insights"
 
 def capacity_chart():
-    fig = px.bar(capacity_df, x="Capacity Range", y="Count", color="Capacity Range", title="Tank Distribution by Capacity")
+    fig = px.bar(capacity_df, x="capBucket", y="count", color="capBucket", title="Tank Distribution by Capacity")
     return dcc.Graph(figure=fig)
 
 def net_growth_chart():
-    fig = px.line(net_df, x="Year", y=["Installations", "Removals", "Net"], title="Installations vs Removals")
+    fig = px.line(net_df, x="year", y=["installs", "removals", "net"], title="Installations vs Removals")
     return dcc.Graph(figure=fig)
 
 def tank_type_trend_chart():
-    fig = px.area(pivot_df, x="Year", y=["Underground", "Aboveground"], title="Trend of Tank Types Over Time")
+    fig = px.area(pivot_df, x="Year", y=["ABOVEGROUND STORAGE TANK", "UNDERGROUND STORAGE TANK"], title="Trend of Tank Types Over Time")
     return dcc.Graph(figure=fig)
 
 def top_products_chart():
-    fig = px.bar(products_df, x="Count", y="Product", orientation='h', title="Top 10 Products in Storage Tanks")
+    fig = px.bar(products_df, x="product", y="count", orientation='h', title="Top 10 Products in Storage Tanks")
     return dcc.Graph(figure=fig)
 
 def suburb_distribution_chart():
