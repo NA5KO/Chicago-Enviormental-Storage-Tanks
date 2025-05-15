@@ -3,6 +3,9 @@ from dash import dcc, html
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+from ydata_profiling import ProfileReport
+import tempfile
+import os
 
 # Load datasets
 capacity_df = pd.read_csv("data/capacity_merged.csv")
@@ -44,16 +47,62 @@ def rolling_trend_chart():
     fig = px.line(trend_df, x="year", y="mov_avg", title="5-Year Windowed Installation Trend")
     return dcc.Graph(figure=fig)
 
+def profiling_report_component(df, title):
+    profile = ProfileReport(
+        df,
+        title=title,
+        explorative=True
+    )
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".html") as tmpfile:
+        profile.to_file(tmpfile.name)
+        tmpfile.seek(0)
+        html_content = tmpfile.read().decode("utf-8")
+    os.unlink(tmpfile.name)
+    return html.Div([
+        html.H3(title),
+        html.Iframe(srcDoc=html_content, style={"width": "100%", "height": "1000px", "border": "none"})
+    ])
+
 # Layout
 app.layout = dbc.Container([
     html.H1("Chicago Environmental Tank Dashboard", className="text-center mt-4 mb-4"),
     dbc.Tabs([
-        dbc.Tab(label="Capacity Distribution", children=[capacity_chart()]),
-        dbc.Tab(label="Net Growth", children=[net_growth_chart()]),
-        dbc.Tab(label="Tank Type Trends", children=[tank_type_trend_chart()]),
-        dbc.Tab(label="Top Products", children=[top_products_chart()]),
-        dbc.Tab(label="Suburb Distribution", children=[suburb_distribution_chart()]),
-        dbc.Tab(label="5-Year Rolling Trend", children=[rolling_trend_chart()]),
+        dbc.Tab(label="Capacity Distribution", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[capacity_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(capacity_df, "Capacity Data Profiling Report")]),
+            ])
+        ]),
+        dbc.Tab(label="Net Growth", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[net_growth_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(net_df, "Net Growth Data Profiling Report")]),
+            ])
+        ]),
+        dbc.Tab(label="Tank Type Trends", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[tank_type_trend_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(pivot_df, "Tank Type Trends Data Profiling Report")]),
+            ])
+        ]),
+        dbc.Tab(label="Top Products", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[top_products_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(products_df, "Top Products Data Profiling Report")]),
+            ])
+        ]),
+        dbc.Tab(label="Suburb Distribution", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[suburb_distribution_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(suburb_df, "Suburb Distribution Data Profiling Report")]),
+            ])
+        ]),
+        dbc.Tab(label="5-Year Rolling Trend", children=[
+            dbc.Tabs([
+                dbc.Tab(label="Visualization", children=[rolling_trend_chart()]),
+                dbc.Tab(label="Data Report", children=[profiling_report_component(trend_df, "5-Year Rolling Trend Data Profiling Report")]),
+            ])
+        ]),
     ])
 ], fluid=True)
 
